@@ -2,7 +2,8 @@ package utils;
 
 import java.util.Calendar;
 
-public class DataUtils {
+/** Contém funções estáticas para conversão de objetos <code>Calendar</code> em datas / horas de vários formatos */
+public class CalendarUtils {
     /** Retorna uma string DD/MM/AAAA dado um Calendar contendo a data.
      */
     public static String getDataString(Calendar data){

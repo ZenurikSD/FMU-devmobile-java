@@ -1,15 +1,14 @@
 import java.util.Calendar;
-import utils.DataUtils;
+import utils.CalendarUtils;
 
 public class Receita {
-    private static int id;
+    private int id;
     private String nome;
     private double valor;
     private Calendar data;
     private int recorrencia;
 
     public Receita(double valor) {
-        id = id + 1;
         this.nome = "Entrada";
         this.valor = valor;
         this.data = Calendar.getInstance();
@@ -17,7 +16,6 @@ public class Receita {
     }
 
     public Receita(String nome, double valor, Calendar data, int recorrencia) {
-        id = id + 1;
         this.nome = nome;
         this.valor = valor;
         this.data = data;
@@ -59,10 +57,10 @@ public class Receita {
     @Override
     public String toString(){
         return
-            "ID #" + (id - 1) + 
+            "ID #" + id + 
             "\n" + this.nome +
             "\nR$ " + this.valor +
-            "\nData: " + DataUtils.getDataString(this.data) +
+            "\nData: " + CalendarUtils.getDataString(this.data) +
             "\nRecorrência: " + this.recorrencia;
     }
 

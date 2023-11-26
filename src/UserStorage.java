@@ -1,6 +1,6 @@
 import java.util.ArrayList;
 
-/** Classe Singleton que define um único usuário para todo o app 
+/** Classe Singleton que define um único usuário para todo o app.
  * <code>receitaList</code> e <code>despesaList</code> são temporários, substitua pela implementação do banco mais tarde
 */
 public class UserStorage{
@@ -42,7 +42,7 @@ public class UserStorage{
     /** Atualiza o saldo do usuário com um certo valor
      * @param incremento
      */
-    public void setSaldo(double incremento){
+    public void updateSaldo(double incremento){
         this.saldo += incremento;
     }
 

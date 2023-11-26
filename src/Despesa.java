@@ -1,25 +1,31 @@
 import java.util.Calendar;
+import utils.CalendarUtils;
 
 public class Despesa{
+    private int id;
     private int categoriaIndex;
     private String descricao;
     private double valor;
     private Calendar data;
     private int recorrencia;
 
-    /** Constrói uma despesa com apenas os atributos obrigatórios */
     public Despesa(int categoriaIndex, double valor) {
         this.categoriaIndex = categoriaIndex;
         this.valor = valor;
+        this.data = Calendar.getInstance();
+        this.recorrencia = 1;
     }
 
-    /** Constrói uma despesa com todos os atributos */
     public Despesa(int categoriaIndex, double valor, String descricao, Calendar data, int recorrencia) {
         this.categoriaIndex = categoriaIndex;
         this.valor = valor;
         this.descricao = descricao;
         this.data = data;
         this.recorrencia = recorrencia;
+    }
+
+    public int getId() {
+        return id;
     }
 
     public int getCategoriaIndex() {
@@ -55,5 +61,16 @@ public class Despesa{
     }
     public void setRecorrencia(int recorrencia) {
         this.recorrencia = recorrencia;
+    }
+
+    @Override
+    public String toString(){
+        return
+            "ID #" + id + 
+            "\nCategoria: " + this.categoriaIndex +
+            "\nDescrição: " + this.descricao + 
+            "\nR$ " + this.valor +
+            "\nData: " + CalendarUtils.getDataString(this.data) +
+            "\nRecorrência: " + this.recorrencia;
     }
 }

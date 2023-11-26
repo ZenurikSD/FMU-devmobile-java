@@ -38,19 +38,33 @@ public class Main {
                         break;
         
                     case 2:
+                        //Adiciona uma nova receita à lista e incrementa o saldo do user
                         System.out.print("Digite um valor: R$ ");
-                        receita = new Receita(input.nextDouble());
+                        double valor = input.nextDouble();
                         input.nextLine();
-        
+
+                        receita = new Receita(valor);
                         user.getReceitaList().add(receita);
+                        user.updateSaldo(valor);
                         break;
         
                     case 3:
                         System.out.print("Digite o ID da receita: ");
                         int id = input.nextInt();
                         input.nextLine();
-        
-                        user.getReceitaList().remove(id);
+
+                        //Se a receita existir, subtrai seu valor do saldo antes de remover
+                        Receita temp;
+                        try {
+                            temp = user.getReceitaList().get(id);
+                        } catch (IndexOutOfBoundsException ioobe) {
+                            System.out.println("Índice não existe na lista");
+                            break;
+                        }        
+
+                        user.updateSaldo( - temp.getValor());
+                        user.getReceitaList().remove(temp);
+                        
                         break;
                         
                     default:
@@ -60,6 +74,77 @@ public class Main {
         }
     }
 
+    private static void manageDespesas(){
+        Despesa despesa;
+
+        int d_option = 1;
+        while (d_option > 0 && d_option < 4){
+            System.out.print(
+                "Despesas" +
+                "\n\t1. Ver todas" +
+                "\n\t2. Adicionar" +
+                "\n\t3. Remover" +
+                "\n\t4. Voltar" +
+                "\n> "
+            );
+            d_option = input.nextInt();
+            input.nextLine();
+    
+            // Faz as operações apenas se a opção for válida
+            if (d_option < 0 && d_option > 4){
+                break;
+            } else {
+                switch (d_option) {
+                    case 1:
+                        if(user.getDespesaList().size() == 0){
+                            System.out.println("A lista está vazia");
+                            break;
+                        } else {
+                            for (Despesa d : user.getDespesaList()){
+                                System.out.println(d.toString());
+                                System.out.println();
+                            }
+                        }
+                        break;
+        
+                    case 2:
+                        System.out.print("Digite o número da categoria: ");
+                        int categoriaIndex = input.nextInt();
+                        input.nextLine();
+
+                        System.out.print("Digite um valor: R$ ");
+                        double valor = input.nextDouble();
+                        input.nextLine();
+
+                        despesa = new Despesa(categoriaIndex, valor);
+        
+                        user.getDespesaList().add(despesa);
+                        user.updateSaldo( - despesa.getValor()); //decrementa o saldo
+                        break;
+        
+                    case 3:
+                        System.out.print("Digite o ID da despesa: ");
+                        int id = input.nextInt();
+                        input.nextLine();
+
+                        Despesa temp;
+                        try {
+                            temp = user.getDespesaList().get(id);
+                        } catch (IndexOutOfBoundsException ioobe) {
+                            System.out.println("Índice não existe na lista");
+                            break;
+                        }        
+                        user.updateSaldo(temp.getValor()); //incrementa o saldo
+                        user.getDespesaList().remove(id);
+
+                        break;
+                        
+                    default:
+                        break;
+                }
+            }
+        }
+    }
 
     public static void main(String[] args) throws Exception {
         int option = 1;
@@ -80,8 +165,7 @@ public class Main {
                     manageReceitas();
                     break;
                 case 2:
-                    // manageDespesas();
-            
+                    manageDespesas();
                 default:
                     break;
             }
